@@ -42,7 +42,7 @@
             gap: 5px;
         }
 
-        .button {
+        .button, .control-button {
             background-color: #d81b60;
             color: white;
             padding: 5px 10px;
@@ -51,11 +51,24 @@
             cursor: pointer;
         }
 
-        .total {
+        .button:hover, .control-button:hover {
+            background-color: #b71c4f;
+        }
+
+        .back-button {
+            background-color: #4e342e;
+        }
+
+        .total, .cart-actions {
+            margin-top: 20px;
             font-size: 1.2em;
             font-weight: bold;
-            margin-top: 15px;
             color: #4e342e;
+        }
+
+        .cart-actions {
+            display: flex;
+            gap: 10px;
         }
     </style>
 </head>
@@ -64,7 +77,12 @@
         <h1>Carrinho</h1>
         <div id="cartItems"></div>
         <div id="totalAmount" class="total"></div>
-        <button class="button" onclick="checkout()">Concluir Compra</button>
+        
+        <div class="cart-actions">
+            <button class="button" onclick="checkout()">Concluir Compra</button>
+            <button class="button" onclick="clearCart()">Limpar Carrinho</button>
+            <a href="index.html" class="button back-button">Voltar ao Menu</a>
+        </div>
     </div>
 
     <script>
@@ -83,6 +101,10 @@
                 itemElement.classList.add('cart-item');
                 itemElement.innerHTML = `
                     <span>${item.name} (x${item.quantity}) - R$ ${itemTotal.toFixed(2)}</span>
+                    <div class="item-controls">
+                        <button class="control-button" onclick="increaseQuantity(${index})">+</button>
+                        <button class="control-button" onclick="decreaseQuantity(${index})">-</button>
+                    </div>
                 `;
                 cartItemsContainer.appendChild(itemElement);
             });
@@ -94,6 +116,29 @@
             }
         }
 
+        function increaseQuantity(index) {
+            let cart = JSON.parse(localStorage.getItem('cart')) || [];
+            cart[index].quantity += 1;
+            localStorage.setItem('cart', JSON.stringify(cart));
+            loadCart();
+        }
+
+        function decreaseQuantity(index) {
+            let cart = JSON.parse(localStorage.getItem('cart')) || [];
+            if (cart[index].quantity > 1) {
+                cart[index].quantity -= 1;
+            } else {
+                cart.splice(index, 1); // Remove o item se a quantidade for 1 e o botão de diminuir for pressionado
+            }
+            localStorage.setItem('cart', JSON.stringify(cart));
+            loadCart();
+        }
+
+        function clearCart() {
+            localStorage.removeItem('cart');
+            loadCart();
+        }
+
         function checkout() {
             let cart = JSON.parse(localStorage.getItem('cart')) || [];
             if (cart.length === 0) {
@@ -101,6 +146,7 @@
                 return;
             }
 
+            // Gerar a mensagem do pedido
             let message = "Pedido:\n";
             let total = 0;
             cart.forEach(item => {
@@ -110,9 +156,14 @@
             });
             message += `Total: R$ ${total.toFixed(2)}`;
 
+            // Codificar a mensagem para URL
             let encodedMessage = encodeURIComponent(message);
             let whatsappUrl = `https://wa.me/556992483104?text=${encodedMessage}`;
+
+            // Redirecionar para o WhatsApp
             window.location.href = whatsappUrl;
+
+            // Limpar o carrinho após o checkout
             localStorage.removeItem('cart');
         }
 
