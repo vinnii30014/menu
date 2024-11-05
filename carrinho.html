@@ -42,28 +42,13 @@
             gap: 5px;
         }
 
-        .button, .control-button {
-            display: inline-block;
-            padding: 5px 10px;
+        .button {
             background-color: #d81b60;
             color: white;
-            text-decoration: none;
-            font-weight: bold;
+            padding: 5px 10px;
             border-radius: 5px;
             border: none;
             cursor: pointer;
-        }
-
-        .button:hover, .control-button:hover {
-            background-color: #b71c4f;
-        }
-
-        .back-button {
-            background-color: #4e342e;
-        }
-
-        .cart-actions {
-            margin-top: 20px;
         }
 
         .total {
@@ -77,16 +62,9 @@
 <body>
     <div class="container">
         <h1>Carrinho</h1>
-        <div id="cartItems">
-            <!-- Os itens do carrinho serão carregados aqui -->
-        </div>
-        <div id="totalAmount" class="total">
-            <!-- Total será exibido aqui -->
-        </div>
-        <div class="cart-actions">
-            <button class="button" onclick="checkout()">Concluir Compra</button>
-            <a href="index.html" class="button back-button">Voltar ao Menu</a>
-        </div>
+        <div id="cartItems"></div>
+        <div id="totalAmount" class="total"></div>
+        <button class="button" onclick="checkout()">Concluir Compra</button>
     </div>
 
     <script>
@@ -104,41 +82,16 @@
                 let itemElement = document.createElement('div');
                 itemElement.classList.add('cart-item');
                 itemElement.innerHTML = `
-                    <span>${item.item} (x${item.quantity})</span>
-                    <span>R$ ${itemTotal.toFixed(2)}</span>
-                    <div class="item-controls">
-                        <button class="control-button" onclick="increaseQuantity(${index})">+</button>
-                        <button class="control-button" onclick="decreaseQuantity(${index})">-</button>
-                    </div>
+                    <span>${item.name} (x${item.quantity}) - R$ ${itemTotal.toFixed(2)}</span>
                 `;
                 cartItemsContainer.appendChild(itemElement);
             });
 
-            // Exibir total
             totalAmountContainer.innerHTML = `Total: R$ ${total.toFixed(2)}`;
-
             if (cart.length === 0) {
                 cartItemsContainer.innerHTML = '<p>O carrinho está vazio.</p>';
                 totalAmountContainer.innerHTML = '';
             }
-        }
-
-        function increaseQuantity(index) {
-            let cart = JSON.parse(localStorage.getItem('cart')) || [];
-            cart[index].quantity += 1;
-            localStorage.setItem('cart', JSON.stringify(cart));
-            loadCart();
-        }
-
-        function decreaseQuantity(index) {
-            let cart = JSON.parse(localStorage.getItem('cart')) || [];
-            if (cart[index].quantity > 1) {
-                cart[index].quantity -= 1;
-            } else {
-                cart.splice(index, 1); // Remove o item se a quantidade for 1 e o botão de diminuir for pressionado
-            }
-            localStorage.setItem('cart', JSON.stringify(cart));
-            loadCart();
         }
 
         function checkout() {
@@ -148,26 +101,18 @@
                 return;
             }
 
-            // Gerar a mensagem do pedido
             let message = "Pedido:\n";
             let total = 0;
-
             cart.forEach(item => {
                 let itemTotal = item.price * item.quantity;
-                message += `${item.item} (x${item.quantity}): R$ ${itemTotal.toFixed(2)}\n`;
+                message += `${item.name} (x${item.quantity}): R$ ${itemTotal.toFixed(2)}\n`;
                 total += itemTotal;
             });
-
             message += `Total: R$ ${total.toFixed(2)}`;
 
-            // Codificar a mensagem para URL
             let encodedMessage = encodeURIComponent(message);
             let whatsappUrl = `https://wa.me/556992483104?text=${encodedMessage}`;
-
-            // Redirecionar para o WhatsApp
             window.location.href = whatsappUrl;
-
-            // Limpar o carrinho após o checkout
             localStorage.removeItem('cart');
         }
 
