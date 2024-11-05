@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Carrinho</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            background-color: #fce4ec;
+            color: #4e342e;
+            margin: 0;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 600px;
+            background-color: #ffffff;
+            border-radius: 15px;
+            box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.2);
+            padding: 20px;
+            text-align: center;
+        }
+
+        .cart-item {
+            display: flex;
+            justify-content: space-between;
+            padding: 10px 0;
+            border-bottom: 1px dashed #4e342e;
+        }
+
+        .cart-item:last-child {
+            border-bottom: none;
+        }
+
+        .cart-actions {
+            margin-top: 20px;
+        }
+
+        .button {
+            display: inline-block;
+            margin: 10px;
+            padding: 10px 20px;
+            background-color: #d81b60;
+            color: white;
+            text-decoration: none;
+            font-weight: bold;
+            border-radius: 5px;
+        }
+
+        .button:hover {
+            background-color: #b71c4f;
+        }
+
+        .back-button {
+            background-color: #4e342e;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Carrinho</h1>
+        <div id="cartItems">
+            <!-- Os itens do carrinho serão carregados aqui -->
+        </div>
+        <div class="cart-actions">
+            <button class="button" onclick="checkout()">Concluir Compra</button>
+            <a href="index.html" class="button back-button">Voltar ao Menu</a>
+        </div>
+    </div>
+
+    <script>
+        function loadCart() {
+            let cart = JSON.parse(localStorage.getItem('cart')) || [];
+            let cartItemsContainer = document.getElementById('cartItems');
+            cartItemsContainer.innerHTML = '';
+            cart.forEach((item, index) => {
+                let itemElement = document.createElement('div');
+                itemElement.classList.add('cart-item');
+                itemElement.innerHTML = `
+                    <span>${item.item}</span>
+                    <span>R$ ${item.price.toFixed(2)}</span>
+                `;
+                cartItemsContainer.appendChild(itemElement);
+            });
+
+            if (cart.length === 0) {
+                cartItemsContainer.innerHTML = '<p>O carrinho está vazio.</p>';
+            }
+        }
+
+        function checkout() {
+            alert("Compra concluída! Obrigado pela preferência.");
+            localStorage.removeItem('cart');
+            window.location.href = "index.html";
+        }
+
+        loadCart();
+    </script>
+</body>
+</html>
