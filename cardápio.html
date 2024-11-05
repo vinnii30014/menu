@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cardápio de Doces</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #fce4ec; /* Rosa bebê */
+            color: #4e342e; /* Marrom */
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+
+        .menu-container {
+            max-width: 800px;
+            background-color: #ffffff;
+            border-radius: 15px;
+            box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.2);
+            padding: 20px;
+        }
+
+        h1 {
+            text-align: center;
+            color: #d81b60; /* Rosa escuro */
+            font-size: 2.5em;
+            margin-top: 0;
+            margin-bottom: 20px;
+        }
+
+        h2 {
+            color: #7b1fa2; /* Lilás */
+            margin-top: 30px;
+            border-bottom: 2px solid #d81b60; /* Rosa escuro */
+            padding-bottom: 5px;
+            font-size: 1.8em;
+        }
+
+        .item {
+            padding: 10px 0;
+            border-bottom: 1px dashed #4e342e; /* Marrom */
+            font-size: 1.2em;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .item:last-child {
+            border-bottom: none;
+        }
+
+        .name-description {
+            max-width: 70%;
+        }
+
+        .name {
+            font-weight: bold;
+        }
+
+        .description {
+            font-size: 0.9em;
+            color: #6d4c41; /* Tom mais suave de marrom */
+            margin-top: 5px;
+            white-space: normal;
+        }
+
+        .price {
+            color: #4e342e; /* Marrom */
+            font-weight: bold;
+            white-space: nowrap;
+            text-align: right;
+        }
+
+        .footer {
+            text-align: center;
+            color: #4e342e;
+            font-size: 1em;
+            margin-top: 20px;
+        }
+
+        .order-button {
+            display: inline-block;
+            padding: 10px 20px;
+            margin-top: 10px;
+            background-color: #d81b60; /* Rosa escuro */
+            color: white;
+            text-decoration: none;
+            font-weight: bold;
+            border-radius: 5px;
+            transition: background-color 0.3s;
+        }
+
+        .order-button:hover {
+            background-color: #b71c4f; /* Tom mais escuro de rosa para o hover */
+        }
+
+        .icon {
+            display: block;
+            margin: 0 auto;
+            width: 40px;
+            height: auto;
+        }
+    </style>
+</head>
+<body>
+    <div class="menu-container">
+        <h1>Cardápio de Doces</h1>
+        <p style="text-align: center; font-size: 1.1em; color: #7b1fa2;">
+            *Valores abaixo correspondem ao cento de doces*
+        </p>
+        
+        <h2>Brigadeiros Tradicionais</h2>
+        <div class="item">
+            <div class="name-description">
+                <span class="name">Brigadeiro de Chocolate</span>
+                <div class="description">O clássico brigadeiro brasileiro com sabor intenso de chocolate.</div>
+            </div>
+            <span class="price">R$ 200,00</span>
+        </div>
+        <div class="item">
+            <div class="name-description">
+                <span class="name">Beijinho</span>
+                <div class="description">Delicioso doce de coco, suave e cremoso, perfeito para quem ama sabores tropicais.</div>
+            </div>
+            <span class="price">R$ 200,00</span>
+        </div>
+
+        <h2>Brigadeiros Especiais</h2>
+        <div class="item">
+            <div class="name-description">
+                <span class="name">Brigadeiro de Churros</span>
+                <div class="description">Inspirado no sabor do churros, com toque de canela e recheio de doce de leite.</div>
+            </div>
+            <span class="price">R$ 200,00</span>
+        </div>
+        <div class="item">
+            <div class="name-description">
+                <span class="name">Brigadeiro de Paçoca</span>
+                <div class="description">Feito com paçoca de amendoim, trazendo o sabor autêntico de festas juninas.</div>
+            </div>
+            <span class="price">R$ 200,00</span>
+        </div>
+        <div class="item">
+            <div class="name-description">
+                <span class="name">Brigadeiro de Castanha</span>
+                <div class="description">Brigadeiro com castanhas crocantes, proporcionando uma textura única e sabor especial.</div>
+            </div>
+            <span class="price">R$ 250,00</span>
+        </div>
+
+        <h2>Brigadeiros Premium</h2>
+        <div class="item">
+            <div class="name-description">
+                <span class="name">Brigadeiro de Ninho com Nutella</span>
+                <div class="description">A combinação perfeita de leite Ninho com o recheio cremoso de Nutella.</div>
+            </div>
+            <span class="price">R$ 260,00</span>
+        </div>
+
+        <h2>Outros Doces</h2>
+        <div class="item">
+            <div class="name-description">
+                <span class="name">Brownie Recheado com Nutella</span>
+                <div class="description">Brownie macio e intenso de chocolate, com um recheio irresistível de Nutella.</div>
+            </div>
+            <span class="price">R$ 270,00</span>
+        </div>
+        <div class="item">
+            <div class="name-description">
+                <span class="name">Brownie Recheado com Ninho</span>
+                <div class="description">Brownie de chocolate recheado com creme suave de leite Ninho.</div>
+            </div>
+            <span class="price">R$ 270,00</span>
+        </div>
+
+        <div class="footer">
+            <img src="https://img.freepik.com/free-icon/cupcake_15745136.htm" alt="Cupcake Icon" class="icon">
+            <a href="https://wa.me/5569992596887" class="order-button">Encomende pelo WhatsApp</a>
+        </div>
+    </div>
+</body>
+</html>
